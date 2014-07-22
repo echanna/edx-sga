@@ -22,3 +22,15 @@ installation:
 Now when you add an "Advanced" unit in Studio, "Staff Graded Asssignment" will be an option:
 
 .. image:: /../screenshots/img/screenshot-studio-new-unit.png?raw=tru
+
+Testing
+-------
+
+Assuming ``edx-sga`` is installed as above, you can run tests like so::
+    
+    $ python manage.py lms --settings=test test edx_sga
+
+To get statement coverage::
+
+    $ coverage run --source edx_sga manage.py lms --settings=test test edx_sga
+    $ coverage report -m

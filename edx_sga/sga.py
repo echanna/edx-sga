@@ -277,8 +277,6 @@ class StaffGradedAssignmentXBlock(XBlock):
 
         studentName = request.user.username
 
-        #studentDirectory = 'static/' + studentName + datetime.now().strftime("/%Y/%m/%d/%H/%M/%S")
-
         studentDirectory = studentName + datetime.now().strftime("/%Y/%m/%d/%H/%M/%S")
 
         edxStorageDirectory = '/edx/var/edxapp/uploads/'

@@ -283,29 +283,25 @@ class StaffGradedAssignmentXBlock(XBlock):
 
         edxStudentDirectory = edxStorageDirectory + studentDirectory
 
-        #studentOutput = studentName + datetime.now().strftime("/%Y/%m/%d/%H/%M/%S")
-
         execute('mkdir -p ' + edxStudentDirectory)
-
-        #execute('touch static/testData/' + edxStudentDirectory + '/MyDataReader2_output.txt')
 
         execute('sudo touch ' + edxStudentDirectory + '/' + 'MyDataReader2_output.txt')
 
         execute('sudo chmod 777 ' + edxStudentDirectory + '/' + 'MyDataReader2_output.txt')
 
-        # The line bellow not needed again # was wrong
-        #execute('cp ' + edxStorageDirectory + 'MyDataReader2.txt' + ' ' + edxStudentDirectory) # edxStorageDirectory / 'MyDataReader2.txt'
-
         # strip leading path from file name to avoid directory traversal attacks
         fname = os.path.basename(upload.file.name)
 
-        open(os.path.join(edxStudentDirectory, fname), 'wb').write(upload.file.read())
+        # build absolute path to files directory
+        dir_path = os.path.join(os.path.dirname(upload.file.name), studentDirectory)
+
+        open(os.path.join(dir_path, fname), 'wb').write(upload.file.read())
 
         # : NEW CODE ENDS
 
         # Does the subprocess work here?
 
-        process = subprocess.Popen('java -jar ' + edxStudentDirectory + '/' + upload.file.name + ' hello < ' + edxStorageDirectory + 'MyDataReader2.txt > ' + edxStudentDirectory + '/MyDataReader2_output.txt', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        process = subprocess.Popen('java -jar ' + os.path.join(dir_path, fname) + ' hello < ' + edxStorageDirectory + 'MyDataReader2.txt > ' + edxStudentDirectory + '/MyDataReader2_output.txt', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         output = ''
 
         # Poll process for new output until finished
@@ -319,7 +315,7 @@ class StaffGradedAssignmentXBlock(XBlock):
         if (exitCode != 0):
             gettingOutput = open(edxStudentDirectory + '/MyDataReader2_output.txt', "w" )
             gettingOutput.write("%s" % '--------:Try Again:--------')
-            gettingOutput.write("\n%s" % 'Command attempted:    ' + 'java -jar ' + edxStudentDirectory + ' hello < ' + edxStudentDirectory + '/MyDataReader2.txt > ' + edxStudentDirectory + '/MyDataReader2_output.txt')
+            gettingOutput.write("\n%s" % 'Command attempted:    ' + 'java -jar ' + os.path.join(dir_path, fname) + ' hello < ' + edxStorageDirectory + '/MyDataReader2.txt > ' + edxStudentDirectory + '/MyDataReader2_output.txt')
             gettingOutput.write("\n%s" % 'Exit code:    ' + str(exitCode))
             gettingOutput.write("\n%s" % output)
 

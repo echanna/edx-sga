@@ -346,42 +346,6 @@ class StaffGradedAssignmentXBlock(XBlock):
 
         if not default_storage.exists(path):
             default_storage.save(path, File(upload.file))
-
-            # NEW CODE BEGINS :
-
-            #default_storage.save(studentDirectory, File(upload.file))
-
-            #default_storage.save(studentDirectory, File('static/testData/MyDataReader2.txt'))
-
-            #execute('touch static/testData/' + studentOutput + '/MyDataReader2_output.txt')
-
-                #Moving the subprocess up |p|
-
-            # process = subprocess.Popen('java -jar ' + studentDirectory + '/' + upload.file.name + ' hello < ' + studentDirectory + '/MyDataReader2.txt > static/testData/' + studentOutput + '/MyDataReader2_output.txt', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-            # output = ''
-            #
-            # # Poll process for new output until finished
-            # for line in iter(process.stdout.readline, ""):
-            #     print line,
-            #     output += line
-            #
-            # process.wait()
-            # exitCode = process.returncode
-            #
-            # if (exitCode != 0):
-            #     gettingOutput = open('static/testData/' + studentOutput + '/MyDataReader2_output.txt', "w" )
-            #     gettingOutput.write("%s" % '--------:Try Again:--------')
-            #     gettingOutput.write("\n%s" % 'Command attempted:    ' + 'java -jar ' + studentDirectory + ' hello < ' + studentDirectory + '/MyDataReader2.txt > static/testData/' + studentOutput + '/MyDataReader2_output.txt')
-            #     gettingOutput.write("\n%s" % 'Exit code:    ' + str(exitCode))
-            #     gettingOutput.write("\n%s" % output)
-            #
-            #     for x in range(0, 26):
-            #         gettingOutput.write("\n%s" % 'Try Again!')
-
-                #Moving the subprocess |p|
-
-            # : NEW CODE ENDS
-
         return Response(json_body=self.student_state())
 
     @XBlock.handler

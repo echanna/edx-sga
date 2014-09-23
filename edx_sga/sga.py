@@ -291,7 +291,9 @@ class StaffGradedAssignmentXBlock(XBlock):
 
         #execute('touch static/testData/' + edxStudentDirectory + '/MyDataReader2_output.txt')
 
-        execute('touch ' + edxStudentDirectory + '/' + 'MyDataReader2_output.txt')
+        execute('sudo touch ' + edxStudentDirectory + '/' + 'MyDataReader2_output.txt')
+
+        execute('sudo chmod 777 ' + edxStudentDirectory + '/' + 'MyDataReader2_output.txt')
 
         # The line bellow not needed again # was wrong
         #execute('cp ' + edxStorageDirectory + 'MyDataReader2.txt' + ' ' + edxStudentDirectory) # edxStorageDirectory / 'MyDataReader2.txt'

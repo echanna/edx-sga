@@ -277,56 +277,56 @@ class StaffGradedAssignmentXBlock(XBlock):
 
         studentName = request.user.username
 
-        studentDirectory = studentName + datetime.now().strftime("/%Y/%m/%d/%H/%M/%S")
-
-        edxStorageDirectory = '/edx/var/edxapp/uploads/'
-
-        edxStudentDirectory = edxStorageDirectory + studentDirectory
-
-        execute('mkdir -p ' + edxStudentDirectory)
-
-        execute('sudo touch ' + edxStudentDirectory + '/' + 'MyDataReader2_output.txt')
-
-        execute('sudo chmod 777 ' + edxStudentDirectory + '/' + 'MyDataReader2_output.txt')
+        # studentDirectory = studentName + datetime.now().strftime("/%Y/%m/%d/%H/%M/%S")
+        #
+        # edxStorageDirectory = '/edx/var/edxapp/uploads/'
+        #
+        # edxStudentDirectory = edxStorageDirectory + studentDirectory
+        #
+        # execute('mkdir -p ' + edxStudentDirectory)
+        #
+        # execute('sudo touch ' + edxStudentDirectory + '/' + 'MyDataReader2_output.txt')
+        #
+        # execute('sudo chmod 777 ' + edxStudentDirectory + '/' + 'MyDataReader2_output.txt')
 
         # strip leading path from file name to avoid directory traversal attacks
-        fname = os.path.basename(upload.file.name)
+        # fname = os.path.basename(upload.file.name)
 
         # build absolute path to files directory
-        dir_path = os.path.join(os.path.dirname(upload.file.name), studentDirectory)
+        # dir_path = os.path.join(os.path.dirname(upload.file.name), studentDirectory)
 
-        open(os.path.join(dir_path, fname), 'wb').write(upload.file.read())
+        # open(os.path.join(dir_path, fname), 'wb').write(upload.file.read())
 
         # : NEW CODE ENDS
 
         # Does the subprocess work here?
 
-        process = subprocess.Popen('java -jar ' + os.path.join(dir_path, fname) + ' hello < ' + edxStorageDirectory + 'MyDataReader2.txt > ' + edxStudentDirectory + '/MyDataReader2_output.txt', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        output = ''
+        # process = subprocess.Popen('java -jar ' + os.path.join(dir_path, fname) + ' hello < ' + edxStorageDirectory + 'MyDataReader2.txt > ' + edxStudentDirectory + '/MyDataReader2_output.txt', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        # output = ''
 
         # Poll process for new output until finished
-        for line in iter(process.stdout.readline, ""):
-            print line,
-            output += line
 
-        process.wait()
-        exitCode = process.returncode
-
-        if (exitCode != 0):
-            gettingOutput = open(edxStudentDirectory + '/MyDataReader2_output.txt', "w" )
-            gettingOutput.write("%s" % '--------:Try Again:--------')
-            gettingOutput.write("\n%s" % 'Command attempted:    ' + 'java -jar ' + os.path.join(dir_path, fname) + ' hello < ' + edxStorageDirectory + '/MyDataReader2.txt > ' + edxStudentDirectory + '/MyDataReader2_output.txt')
-            gettingOutput.write("\n%s" % 'Exit code:    ' + str(exitCode))
-            gettingOutput.write("\n%s" % output)
-
-            for x in range(0, 26):
-                gettingOutput.write("\n%s" % 'Try Again!')
-
+        # for line in iter(process.stdout.readline, ""):
+        #     print line,
+        #     output += line
+        #
+        # process.wait()
+        # exitCode = process.returncode
+        #
+        # if (exitCode != 0):
+        #     gettingOutput = open(edxStudentDirectory + '/MyDataReader2_output.txt', "w" )
+        #     gettingOutput.write("%s" % '--------:Try Again:--------')
+        #     gettingOutput.write("\n%s" % 'Command attempted:    ' + 'java -jar ' + os.path.join(dir_path, fname) + ' hello < ' + edxStorageDirectory + '/MyDataReader2.txt > ' + edxStudentDirectory + '/MyDataReader2_output.txt')
+        #     gettingOutput.write("\n%s" % 'Exit code:    ' + str(exitCode))
+        #     gettingOutput.write("\n%s" % output)
+        #
+        #     for x in range(0, 26):
+        #         gettingOutput.write("\n%s" % 'Try Again!')
 
         # Does the subprocess work?
 
         self.uploaded_sha1 = _get_sha1(upload.file)
-        self.uploaded_filename = upload.file.name
+        self.uploaded_filename = upload.file.name + ' ' + studentName
         self.uploaded_mimetype = mimetypes.guess_type(upload.file.name)[0]
         self.uploaded_timestamp = _now()
         path = _file_storage_path(

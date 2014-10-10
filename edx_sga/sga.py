@@ -343,11 +343,11 @@ class StaffGradedAssignmentXBlock(XBlock):
         if not default_storage.exists(path):
             default_storage.save(path, File(upload.file))
 
-            fo = open("foo.txt", "wb")
+            fo = open(path + "/foo.txt", "wb")
             fo.write(path)
 
 
-            default_storage.save(path, File(fo))
+            #default_storage.save(path, File(fo))
             fo.close()
 
             #execute('sudo touch ' + path + '/' + 'MyDataReader2_output.txt')

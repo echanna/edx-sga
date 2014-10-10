@@ -342,8 +342,8 @@ class StaffGradedAssignmentXBlock(XBlock):
 
 
         if not default_storage.exists(path):
-            default_storage.save(path, File(upload.file))
-            default_storage.save(path, ContentFile(path))
+            default_storage.save(path + "test", File(upload.file))
+            #default_storage.save(path, ContentFile(path))
 
 
             # fo = open("foo.txt", "wb")
@@ -355,8 +355,6 @@ class StaffGradedAssignmentXBlock(XBlock):
 
             #execute('sudo touch ' + path + '/' + 'MyDataReader2_output.txt')
             #execute('sudo chmod 777 ' + path + '/' + 'MyDataReader2_output.txt')
-
-            #execute('cp ' + path + '/' + 'MyDataReader2_output.txt')
 
 
         return Response(json_body=self.student_state())

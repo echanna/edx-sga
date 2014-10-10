@@ -277,7 +277,7 @@ class StaffGradedAssignmentXBlock(XBlock):
 
         studentName = request.user.username
 
-        # studentDirectory = studentName + datetime.now().strftime("/%Y/%m/%d/%H/%M/%S")
+        studentDirectory = studentName + datetime.now().strftime("/%Y/%m/%d/%H/%M/%S")
         #
         # edxStorageDirectory = '/edx/var/edxapp/uploads/'
         #
@@ -293,7 +293,7 @@ class StaffGradedAssignmentXBlock(XBlock):
         # fname = os.path.basename(upload.file.name)
 
         # build absolute path to files directory
-        # dir_path = os.path.join(os.path.dirname(upload.file.name), studentDirectory)
+        dir_path = os.path.join(os.path.dirname(upload.file.name), studentDirectory)
 
         # open(os.path.join(dir_path, fname), 'wb').write(upload.file.read())
 
@@ -326,7 +326,7 @@ class StaffGradedAssignmentXBlock(XBlock):
         # Does the subprocess work?
 
         self.uploaded_sha1 = _get_sha1(upload.file)
-        self.uploaded_filename = upload.file.name + ' ' + studentName
+        self.uploaded_filename = upload.file.name + ' ' + studentName + " " + dir_path
         self.uploaded_mimetype = mimetypes.guess_type(upload.file.name)[0]
         self.uploaded_timestamp = _now()
         path = _file_storage_path(

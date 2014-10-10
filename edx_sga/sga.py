@@ -275,9 +275,9 @@ class StaffGradedAssignmentXBlock(XBlock):
 
         # NEW CODE BEGINS :
 
-        studentName = request.user.username
+        #studentName = request.user.username
 
-        studentDirectory = studentName + datetime.now().strftime("/%Y/%m/%d/%H/%M/%S")
+        #studentDirectory = studentName + datetime.now().strftime("/%Y/%m/%d/%H/%M/%S")
         #
         # edxStorageDirectory = '/edx/var/edxapp/uploads/'
         #
@@ -293,7 +293,7 @@ class StaffGradedAssignmentXBlock(XBlock):
         # fname = os.path.basename(upload.file.name)
 
         # build absolute path to files directory
-        dir_path = os.path.join(os.path.dirname(upload.file.name), studentDirectory)
+        #dir_path = os.path.join(os.path.dirname(upload.file.name), studentDirectory)
 
         # open(os.path.join(dir_path, fname), 'wb').write(upload.file.read())
 

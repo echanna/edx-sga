@@ -1,0 +1,29 @@
+
+#If the line just read is a whole line comment immediately read another line and 
+#continue reading lines until you read one that is not a whole line comment.  
+#(A whole line comment is a line in which the first character(s) is/are a 
+#comment marker.)
+This is a test of the whole line comment.THIS LINE SHOULD BE RETURNED AND PRINTED.
+#If the line does not contain a comment marker, return the whole line.
+This is a test of a line with data at the start of line with end of line comment. # data hidden
+This is a test of a line with data at the start of line with end of line comment.THIS LINE SHOULD BE RETURNED AND PRINTED. 
+#If the line just read contains a comment marker other than at the begining of 
+#the line, then return only the data at the start of the line.
+ (SPACE)This is a test of a line with special space at the Start.THIS LINE SHOULD BE RETURNED AND PRINTED.
+#PLEASE NOTE that neither an empty line nor a line that contains only one or 
+#more space or tab characters is in any way special it should be processed 
+#according to the preceding paragraphs (which will lead to it being returned 
+#unchanged.
+	(TAB)This is a test of a line with special tab at the Start.THIS LINE SHOULD BE RETURNED AND PRINTED.
+#PLEASE NOTE that neither an empty line nor a line that contains only one or 
+#more space or tab characters is in any way special it should be processed 
+#according to the preceding paragraphs (which will lead to it being returned 
+#unchanged.
+#Setting  the reference to the marker text to null will be used to signify 
+#that none of the data in the input file is to be treated as  a comment 
+#so that the readLine() Method of MyDataReader will return every line of 
+#input rather than ignoring comments.
+ALL LINES WERE RETURNED AND PRINTED.
+(Testing this file with the marker set to tilde)THIS IS IMPORTANT READING
+
+ +++Your data was processed+++

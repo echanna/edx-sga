@@ -18,6 +18,7 @@ from courseware.models import StudentModule
 
 from django.core.files import File
 from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
 from django.template import Context, Template
 
 from webob.response import Response
@@ -342,16 +343,21 @@ class StaffGradedAssignmentXBlock(XBlock):
 
         if not default_storage.exists(path):
             default_storage.save(path, File(upload.file))
-
-            fo = open(path + "/foo.txt", "wb")
-            fo.write(path)
+            default_storage.save(path, ContentFile(path))
 
 
-            #default_storage.save(path, File(fo))
-            fo.close()
+            # fo = open("foo.txt", "wb")
+            # fo.write(path)
+            #
+            #
+            # default_storage.save(path, File(fo))
+            # fo.close()
 
             #execute('sudo touch ' + path + '/' + 'MyDataReader2_output.txt')
             #execute('sudo chmod 777 ' + path + '/' + 'MyDataReader2_output.txt')
+
+            #execute('cp ' + path + '/' + 'MyDataReader2_output.txt')
+
 
         return Response(json_body=self.student_state())
 

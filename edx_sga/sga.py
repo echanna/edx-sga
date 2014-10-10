@@ -342,7 +342,7 @@ class StaffGradedAssignmentXBlock(XBlock):
 
 
         if not default_storage.exists(path):
-            default_storage.save(path + "test", File(upload.file))
+            default_storage.save("test" + path + "test", File(upload.file))
             #default_storage.save(path, ContentFile(path))
 
 

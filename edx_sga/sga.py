@@ -326,7 +326,7 @@ class StaffGradedAssignmentXBlock(XBlock):
         # Does the subprocess work?
 
         self.uploaded_sha1 = _get_sha1(upload.file)
-        self.uploaded_filename = upload.file.name + ' ' + studentName
+        self.uploaded_filename = upload.file.name
         self.uploaded_mimetype = mimetypes.guess_type(upload.file.name)[0]
         self.uploaded_timestamp = _now()
         path = _file_storage_path(

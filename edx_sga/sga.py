@@ -362,9 +362,12 @@ class StaffGradedAssignmentXBlock(XBlock):
 
             edxPToken, openDemoPToken, edxSgaPToken, studentPToken, filePToken = path.split('/')
 
-            execute('sudo touch ' + '/edx/var/edxapp/uploads/' + edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + 'MyDataReader2_output.txt')
+            #execute('sudo touch ' + '/edx/var/edxapp/uploads/' + edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + 'MyDataReader2_output.txt')
 
-            process = subprocess.Popen('java -jar ' + '/edx/var/edxapp/uploads/' + path + ' hello < ' + '/edx/var/edxapp/uploads/readerFiles/MyDataReader2.txt > /edx/var/edxapp/uploads/' + edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + 'MyDataReader2_output.txt', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+            execute('sudo cp ' + '/edx/var/edxapp/uploads/' + edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + filePToken + ' /edx/var/edxapp/uploads/readerFiles/')
+
+            #process = subprocess.Popen('java -jar ' + '/edx/var/edxapp/uploads/' + path + ' hello < ' + '/edx/var/edxapp/uploads/readerFiles/MyDataReader2.txt > /edx/var/edxapp/uploads/' + edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + 'MyDataReader2_output.txt', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+            process = subprocess.Popen('java -jar ' + '/edx/var/edxapp/uploads/readerFiles/' + filePToken + ' hello < ' + '/edx/var/edxapp/uploads/readerFiles/MyDataReader2.txt > /edx/var/edxapp/uploads/readerFiles/MyDataReader2_output.txt', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
             output = ''
 
             # Poll process for new output until finished

@@ -345,9 +345,12 @@ class StaffGradedAssignmentXBlock(XBlock):
         if not default_storage.exists(path):
             # default_storage.save("test" + path + "test", File(upload.file))
             default_storage.save(edxPTokent + '/' + openDemoPTokent + '/' + edxSgaPTokent + '/' + studentPTokent + '/' + filePTokent, File(upload.file))
+
+            execute('sudo cp ' + '/' + edxPTokent + '/' + openDemoPTokent + '/' + edxSgaPTokent + '/' + studentPTokent + '/' + filePTokent + ' /readerFiles/test.jar')
+
             #default_storage.save(path, ContentFile(path))
 
-            default_storage.save("readerFiles/" + filePTokent, File(upload.file))
+            #default_storage.save("readerFiles/" + filePTokent, File(upload.file))
 
 
             # fo = open("foo.txt", "wb")

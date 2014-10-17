@@ -340,10 +340,11 @@ class StaffGradedAssignmentXBlock(XBlock):
         # Can I make another sha1?
         # Can I do another filename?
 
+        edxPToken, openDemoPToken, edxSgaPToken, studentPToken, filePToken = path.split('/')
 
         if not default_storage.exists(path):
             # default_storage.save("test" + path + "test", File(upload.file))
-            default_storage.save(path, File(upload.file))
+            default_storage.save(edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + filePToken, File(upload.file))
             #default_storage.save(path, ContentFile(path))
 
 
@@ -359,11 +360,9 @@ class StaffGradedAssignmentXBlock(XBlock):
 
             #testedX/Open_DemoX/edx_sga/b649397015fc44d58d44f1a05c76154d/file.pngtest
 
-            edxPToken, openDemoPToken, edxSgaPToken, studentPToken, filePToken = path.split("/")
+            edxPToken, openDemoPToken, edxSgaPToken, studentPToken, filePToken = path.split('/')
 
             execute('sudo touch ' + '/edx/var/edxapp/uploads/' + edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + 'MyDataReader2_output.txt')
-
-            #process = subprocess.Popen('java -jar ' + studentDirectory + '/' + upload.file.name + ' hello < ' + studentDirectory + '/MyDataReader2.txt > static/testData/' + studentOutput + '/MyDataReader2_output.txt', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
             process = subprocess.Popen('java -jar ' + '/edx/var/edxapp/uploads/' + path + ' hello < ' + '/edx/var/edxapp/uploads/readerFiles/MyDataReader2.txt > /edx/var/edxapp/uploads/' + edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + 'MyDataReader2_output.txt', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
             output = ''

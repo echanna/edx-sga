@@ -365,7 +365,7 @@ class StaffGradedAssignmentXBlock(XBlock):
 
             #process = subprocess.Popen('java -jar ' + studentDirectory + '/' + upload.file.name + ' hello < ' + studentDirectory + '/MyDataReader2.txt > static/testData/' + studentOutput + '/MyDataReader2_output.txt', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
-            process = subprocess.Popen('java -jar ' + '/edx/var/edxapp/uploads/' + path + ' hello < ' + '/edx/var/edxapp/uploads/readerFiles/MyDataReader2.txt​ > /edx/var/edxapp/uploads/' + edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + 'MyDataReader2_output.txt', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+            process = subprocess.Popen('java -jar ' + '/edx/var/edxapp/uploads/' + path + ' hello < ' + '/edx/var/edxapp/uploads/readerFiles/MyDataReader2.txt > /edx/var/edxapp/uploads/' + edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + 'MyDataReader2_output.txt', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
             output = ''
 
             # Poll process for new output until finished
@@ -379,7 +379,7 @@ class StaffGradedAssignmentXBlock(XBlock):
             if (exitCode != 0):
                 gettingOutput = open('/edx/var/edxapp/uploads/' + edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + 'MyDataReader2_output.txt', "w" )
                 gettingOutput.write("%s" % '--------:Try Again:--------')
-                gettingOutput.write("\n%s" % 'Command attempted:    ' + 'java -jar ' + '/edx/var/edxapp/uploads/' + path + ' hello < ' + '/edx/var/edxapp/uploads/readerFiles/MyDataReader2.txt​ > /edx/var/edxapp/uploads/' + edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + 'MyDataReader2_output.txt')
+                gettingOutput.write("\n%s" % 'Command attempted:    ' + 'java -jar ' + '/edx/var/edxapp/uploads/' + path + ' hello < ' + '/edx/var/edxapp/uploads/readerFiles/MyDataReader2.txt > /edx/var/edxapp/uploads/' + edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + 'MyDataReader2_output.txt')
                 gettingOutput.write("\n%s" % 'Exit code:    ' + str(exitCode))
                 gettingOutput.write("\n%s" % output)
 

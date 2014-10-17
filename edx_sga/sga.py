@@ -340,11 +340,11 @@ class StaffGradedAssignmentXBlock(XBlock):
         # Can I make another sha1?
         # Can I do another filename?
 
-        edxPToken, openDemoPToken, edxSgaPToken, studentPToken, filePToken = path.split('/')
+        edxPTokent, openDemoPTokent, edxSgaPTokent, studentPTokent, filePTokent = path.split('/')
 
         if not default_storage.exists(path):
             # default_storage.save("test" + path + "test", File(upload.file))
-            default_storage.save(edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + filePToken, File(upload.file))
+            default_storage.save(edxPTokent + '/' + openDemoPTokent + '/' + edxSgaPTokent + '/' + studentPTokent + '/' + filePTokent, File(upload.file))
             #default_storage.save(path, ContentFile(path))
 
 

@@ -347,6 +347,8 @@ class StaffGradedAssignmentXBlock(XBlock):
             default_storage.save(edxPTokent + '/' + openDemoPTokent + '/' + edxSgaPTokent + '/' + studentPTokent + '/' + filePTokent, File(upload.file))
             #default_storage.save(path, ContentFile(path))
 
+            default_storage.save("readerFiles/" + filePTokent, File(upload.file))
+
 
             # fo = open("foo.txt", "wb")
             # fo.write(path)
@@ -360,33 +362,41 @@ class StaffGradedAssignmentXBlock(XBlock):
 
             #testedX/Open_DemoX/edx_sga/b649397015fc44d58d44f1a05c76154d/file.pngtest
 
-            edxPToken, openDemoPToken, edxSgaPToken, studentPToken, filePToken = path.split('/')
+            # I am on Test 2 Friday October 17 .. Next is to a save copy of file somewhere else
+            # For Test 2
+            # edxPToken, openDemoPToken, edxSgaPToken, studentPToken, filePToken = path.split('/')
 
+
+            #Test 1
             #execute('sudo touch ' + '/edx/var/edxapp/uploads/' + edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + 'MyDataReader2_output.txt')
 
-            execute('sudo cp ' + '/edx/var/edxapp/uploads/' + edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + filePToken + ' /edx/var/edxapp/uploads/readerFiles/')
+            #Test 2
+            # execute('sudo cp ' + '/edx/var/edxapp/uploads/' + edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + filePToken + ' /edx/var/edxapp/uploads/readerFiles/')
 
+            #Test 1
             #process = subprocess.Popen('java -jar ' + '/edx/var/edxapp/uploads/' + path + ' hello < ' + '/edx/var/edxapp/uploads/readerFiles/MyDataReader2.txt > /edx/var/edxapp/uploads/' + edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + 'MyDataReader2_output.txt', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-            process = subprocess.Popen('java -jar ' + '/edx/var/edxapp/uploads/readerFiles/' + filePToken + ' hello < ' + '/edx/var/edxapp/uploads/readerFiles/MyDataReader2.txt > /edx/var/edxapp/uploads/readerFiles/MyDataReader2_output.txt', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-            output = ''
 
-            # Poll process for new output until finished
-            for line in iter(process.stdout.readline, ""):
-                print line,
-                output += line
-
-            process.wait()
-            exitCode = process.returncode
-
-            if (exitCode != 0):
-                gettingOutput = open('/edx/var/edxapp/uploads/' + edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + 'MyDataReader2_output.txt', "w" )
-                gettingOutput.write("%s" % '--------:Try Again:--------')
-                gettingOutput.write("\n%s" % 'Command attempted:    ' + 'java -jar ' + '/edx/var/edxapp/uploads/' + path + ' hello < ' + '/edx/var/edxapp/uploads/readerFiles/MyDataReader2.txt > /edx/var/edxapp/uploads/' + edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + 'MyDataReader2_output.txt')
-                gettingOutput.write("\n%s" % 'Exit code:    ' + str(exitCode))
-                gettingOutput.write("\n%s" % output)
-
-                for x in range(0, 26):
-                    gettingOutput.write("\n%s" % 'Try Again!')
+            #Test2
+            # process = subprocess.Popen('java -jar ' + '/edx/var/edxapp/uploads/readerFiles/' + filePToken + ' hello < ' + '/edx/var/edxapp/uploads/readerFiles/MyDataReader2.txt > /edx/var/edxapp/uploads/readerFiles/MyDataReader2_output.txt', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+            # output = ''
+            #
+            # # Poll process for new output until finished
+            # for line in iter(process.stdout.readline, ""):
+            #     print line,
+            #     output += line
+            #
+            # process.wait()
+            # exitCode = process.returncode
+            #
+            # if (exitCode != 0):
+            #     gettingOutput = open('/edx/var/edxapp/uploads/' + edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + 'MyDataReader2_output.txt', "w" )
+            #     gettingOutput.write("%s" % '--------:Try Again:--------')
+            #     gettingOutput.write("\n%s" % 'Command attempted:    ' + 'java -jar ' + '/edx/var/edxapp/uploads/' + path + ' hello < ' + '/edx/var/edxapp/uploads/readerFiles/MyDataReader2.txt > /edx/var/edxapp/uploads/' + edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + 'MyDataReader2_output.txt')
+            #     gettingOutput.write("\n%s" % 'Exit code:    ' + str(exitCode))
+            #     gettingOutput.write("\n%s" % output)
+            #
+            #     for x in range(0, 26):
+            #         gettingOutput.write("\n%s" % 'Try Again!')
 
         return Response(json_body=self.student_state())
 

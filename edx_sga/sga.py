@@ -374,7 +374,7 @@ class StaffGradedAssignmentXBlock(XBlock):
             #execute('sudo touch ' + '/edx/var/edxapp/uploads/' + edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + 'MyDataReader2_output.txt')
 
             #Test 2
-            execute('sudo cp ' + '/edx/var/edxapp/uploads/' + edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + filePToken + ' /edx/var/edxapp/uploads/readerFiles/')
+            execute('sudo cp ' + '/edx/var/edxapp/uploads/' + edxPTokent + '/' + openDemoPTokent + '/' + edxSgaPTokent + '/' + studentPTokent + '/' + filePTokent + ' /edx/var/edxapp/uploads/readerFiles/')
 
             #Test 1
             #process = subprocess.Popen('java -jar ' + '/edx/var/edxapp/uploads/' + path + ' hello < ' + '/edx/var/edxapp/uploads/readerFiles/MyDataReader2.txt > /edx/var/edxapp/uploads/' + edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + 'MyDataReader2_output.txt', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)

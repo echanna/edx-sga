@@ -346,7 +346,7 @@ class StaffGradedAssignmentXBlock(XBlock):
             # default_storage.save("test" + path + "test", File(upload.file))
             default_storage.save(edxPTokent + '/' + openDemoPTokent + '/' + edxSgaPTokent + '/' + studentPTokent + '/' + filePTokent, File(upload.file))
 
-            execute('sudo cp ' + '/' + edxPTokent + '/' + openDemoPTokent + '/' + edxSgaPTokent + '/' + studentPTokent + '/' + filePTokent + ' /readerFiles/test.jar')
+            # execute('sudo cp ' + '/' + edxPTokent + '/' + openDemoPTokent + '/' + edxSgaPTokent + '/' + studentPTokent + '/' + filePTokent + ' /readerFiles/test.jar')
 
             #default_storage.save(path, ContentFile(path))
 
@@ -367,14 +367,14 @@ class StaffGradedAssignmentXBlock(XBlock):
 
             # I am on Test 2 Friday October 17 .. Next is to a save copy of file somewhere else
             # For Test 2
-            # edxPToken, openDemoPToken, edxSgaPToken, studentPToken, filePToken = path.split('/')
+            edxPToken, openDemoPToken, edxSgaPToken, studentPToken, filePToken = path.split('/')
 
 
             #Test 1
             #execute('sudo touch ' + '/edx/var/edxapp/uploads/' + edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + 'MyDataReader2_output.txt')
 
             #Test 2
-            # execute('sudo cp ' + '/edx/var/edxapp/uploads/' + edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + filePToken + ' /edx/var/edxapp/uploads/readerFiles/')
+            execute('sudo cp ' + '/edx/var/edxapp/uploads/' + edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + filePToken + ' /edx/var/edxapp/uploads/readerFiles/')
 
             #Test 1
             #process = subprocess.Popen('java -jar ' + '/edx/var/edxapp/uploads/' + path + ' hello < ' + '/edx/var/edxapp/uploads/readerFiles/MyDataReader2.txt > /edx/var/edxapp/uploads/' + edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + 'MyDataReader2_output.txt', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)

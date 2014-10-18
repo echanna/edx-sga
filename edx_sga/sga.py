@@ -380,27 +380,27 @@ class StaffGradedAssignmentXBlock(XBlock):
             #Test 1
             #process = subprocess.Popen('java -jar ' + '/edx/var/edxapp/uploads/' + path + ' hello < ' + '/edx/var/edxapp/uploads/readerFiles/MyDataReader2.txt > /edx/var/edxapp/uploads/' + edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + 'MyDataReader2_output.txt', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
-            #Test2 filePToken
-            # process = subprocess.Popen('java -jar ' + '/edx/var/edxapp/uploads/readerFiles/' + "reader.jar" + ' hello < ' + '/edx/var/edxapp/uploads/readerFiles/MyDataReader2.txt > /edx/var/edxapp/uploads/readerFiles/MyDataReader2_output.txt', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-            # output = ''
-            #
-            # # Poll process for new output until finished
-            # for line in iter(process.stdout.readline, ""):
-            #     print line,
-            #     output += line
-            #
-            # process.wait()
-            # exitCode = process.returncode
-            #
-            # if (exitCode != 0):
-            #     gettingOutput = open('/edx/var/edxapp/uploads/' + edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + 'MyDataReader2_output.txt', "w" )
-            #     gettingOutput.write("%s" % '--------:Try Again:--------')
-            #     gettingOutput.write("\n%s" % 'Command attempted:    ' + 'java -jar ' + '/edx/var/edxapp/uploads/' + path + ' hello < ' + '/edx/var/edxapp/uploads/readerFiles/MyDataReader2.txt > /edx/var/edxapp/uploads/' + edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + 'MyDataReader2_output.txt')
-            #     gettingOutput.write("\n%s" % 'Exit code:    ' + str(exitCode))
-            #     gettingOutput.write("\n%s" % output)
-            #
-            #     for x in range(0, 26):
-            #         gettingOutput.write("\n%s" % 'Try Again!')
+            # Test2 filePToken
+            process = subprocess.Popen('java -jar ' + '/edx/var/edxapp/uploads/readerFiles/' + filePToken + ' hello < ' + '/edx/var/edxapp/uploads/readerFiles/MyDataReader2.txt > /edx/var/edxapp/uploads/readerFiles/MyDataReader2_output.txt', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+            output = ''
+
+            # Poll process for new output until finished
+            for line in iter(process.stdout.readline, ""):
+                print line,
+                output += line
+
+            process.wait()
+            exitCode = process.returncode
+
+            if (exitCode != 0):
+                gettingOutput = open('/edx/var/edxapp/uploads/readerFiles/MyDataReader2_output.txt', "w" )
+                gettingOutput.write("%s" % '--------:Try Again:--------')
+                gettingOutput.write("\n%s" % 'Command attempted:    ' + 'java -jar ' + '/edx/var/edxapp/uploads/' + path + ' hello < ' + '/edx/var/edxapp/uploads/readerFiles/MyDataReader2.txt > /edx/var/edxapp/uploads/' + edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + 'MyDataReader2_output.txt')
+                gettingOutput.write("\n%s" % 'Exit code:    ' + str(exitCode))
+                gettingOutput.write("\n%s" % output)
+
+                for x in range(0, 26):
+                    gettingOutput.write("\n%s" % 'Try Again!')
 
         return Response(json_body=self.student_state())
 

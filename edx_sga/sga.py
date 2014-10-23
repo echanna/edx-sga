@@ -373,7 +373,8 @@ class StaffGradedAssignmentXBlock(XBlock):
             fileXtension = os.path.splitext(filePToken)[1][1:]
 
 
-            if fileXtension != None and fileXtension is 'zip':
+            # if fileXtension != None and fileXtension is 'zip':
+            if fileXtension is 'zip':
                 fileNamed, fileExtensionNamed = filePToken.split('.')
                 # if not os.path.exists('/edx/var/edxapp/uploads/readerFiles/' + fileNamed):
                 os.system('sudo mkdir -p ' + '/edx/var/edxapp/uploads/readerFiles/' + fileNamed + '/')

@@ -370,7 +370,7 @@ class StaffGradedAssignmentXBlock(XBlock):
             # For Test 2
             edxPToken, openDemoPToken, edxSgaPToken, studentPToken, filePToken = path.split('/')
 
-            fileXtension = os.path.splitext(filePToken)[1]
+            fileXtension = os.path.splitext(filePToken)[1][1:]
 
 
             if fileXtension != None and fileXtension is 'zip':

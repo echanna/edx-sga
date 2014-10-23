@@ -376,9 +376,9 @@ class StaffGradedAssignmentXBlock(XBlock):
             if fileXtension != None and fileXtension is 'zip':
                 fileNamed, fileExtensionNamed = filePToken.split('.')
                 # if not os.path.exists('/edx/var/edxapp/uploads/readerFiles/' + fileNamed):
-                os.system('mkdir -p ' + '/edx/var/edxapp/uploads/readerFiles/' + fileNamed + '/')
+                os.system('sudo mkdir -p ' + '/edx/var/edxapp/uploads/readerFiles/' + fileNamed + '/')
                 os.system('sudo chmod 777 ' + '/edx/var/edxapp/uploads/readerFiles/' + fileNamed + '/')
-                os.system('cp /edx/var/edxapp/uploads/readerFiles/MyDataReader2_output.txt' + ' /edx/var/edxapp/uploads/readerFiles/' + fileNamed + '/')
+                os.system('sudo cp /edx/var/edxapp/uploads/readerFiles/MyDataReader2_output.txt' + ' /edx/var/edxapp/uploads/readerFiles/' + fileNamed + '/')
                 os.system('sudo chmod 777 ' + '/edx/var/edxapp/uploads/readerFiles/' + fileNamed + '/MyDataReader2_output.txt')
 
                 os.system('cp ' + '/edx/var/edxapp/uploads/' + edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + filePToken + ' /edx/var/edxapp/uploads/readerFiles/' + fileNamed + '/')

@@ -8,6 +8,7 @@ import json
 import logging
 import mimetypes
 import os
+import os.path
 import pkg_resources
 import pytz
 import subprocess
@@ -369,38 +370,41 @@ class StaffGradedAssignmentXBlock(XBlock):
             # For Test 2
             edxPToken, openDemoPToken, edxSgaPToken, studentPToken, filePToken = path.split('/')
 
+            fileXtension = os.path.splitext(filePToken)[1]
 
-            #Test 1
-            #execute('sudo touch ' + '/edx/var/edxapp/uploads/' + edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + 'MyDataReader2_output.txt')
 
-            #Test 2
-            # execute('sudo cp ' + '/edx/var/edxapp/uploads/' + edxPTokent + '/' + openDemoPTokent + '/' + edxSgaPTokent + '/' + studentPTokent + '/' + filePTokent + ' /edx/var/edxapp/uploads/readerFiles/')
-            os.system('cp ' + '/edx/var/edxapp/uploads/' + edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + filePToken + ' /edx/var/edxapp/uploads/readerFiles/')
+            if fileXtension != None and fileXtension is 'zip':
+                fileNamed, fileExtensionNamed = filePToken.split('.')
+                # if not os.path.exists('/edx/var/edxapp/uploads/readerFiles/' + fileNamed):
+                os.system('mkdir -p ' + '/edx/var/edxapp/uploads/readerFiles/' + fileNamed + '/')
+                os.system('sudo chmod 777 ' + '/edx/var/edxapp/uploads/readerFiles/' + fileNamed + '/')
+                os.system('cp /edx/var/edxapp/uploads/readerFiles/MyDataReader2_output.txt' + ' /edx/var/edxapp/uploads/readerFiles/' + fileNamed + '/')
+                os.system('sudo chmod 777 ' + '/edx/var/edxapp/uploads/readerFiles/' + fileNamed + '/MyDataReader2_output.txt')
 
-            #Test 1
-            #process = subprocess.Popen('java -jar ' + '/edx/var/edxapp/uploads/' + path + ' hello < ' + '/edx/var/edxapp/uploads/readerFiles/MyDataReader2.txt > /edx/var/edxapp/uploads/' + edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + 'MyDataReader2_output.txt', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                os.system('cp ' + '/edx/var/edxapp/uploads/' + edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + filePToken + ' /edx/var/edxapp/uploads/readerFiles/' + fileNamed + '/')
 
-            # Test2 filePToken
-            process = subprocess.Popen('java -jar ' + '/edx/var/edxapp/uploads/readerFiles/' + filePToken + ' hello < ' + '/edx/var/edxapp/uploads/readerFiles/MyDataReader2.txt > /edx/var/edxapp/uploads/readerFiles/MyDataReader2_output.txt', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-            output = ''
+                process = subprocess.Popen('unzip ' + '/edx/var/edxapp/uploads/readerFiles/' + fileNamed + '/' + filePToken , shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                output = ''
 
-            # Poll process for new output until finished
-            for line in iter(process.stdout.readline, ""):
-                print line,
-                output += line
+                # Poll process for new output until finished
+                for line in iter(process.stdout.readline, ""):
+                    print line,
+                    output += line
 
-            process.wait()
-            exitCode = process.returncode
+                process.wait()
+                exitCode = process.returncode
 
-            if (exitCode != 0):
-                gettingOutput = open('/edx/var/edxapp/uploads/readerFiles/MyDataReader2_output.txt', "w" )
-                gettingOutput.write("%s" % '--------:Try Again:--------')
-                gettingOutput.write("\n%s" % 'Command attempted:    ' + 'java -jar ' + '/edx/var/edxapp/uploads/' + path + ' hello < ' + '/edx/var/edxapp/uploads/readerFiles/MyDataReader2.txt > /edx/var/edxapp/uploads/' + edxPToken + '/' + openDemoPToken + '/' + edxSgaPToken + '/' + studentPToken + '/' + 'MyDataReader2_output.txt')
-                gettingOutput.write("\n%s" % 'Exit code:    ' + str(exitCode))
-                gettingOutput.write("\n%s" % output)
+                if (exitCode != 0):
+                    gettingOutput = open('/edx/var/edxapp/uploads/readerFiles/' + fileNamed + '/MyDataReader2_output.txt', "w" )
+                    gettingOutput.write("%s" % '--------:Try Again:--------')
+                    gettingOutput.write("\n%s" % 'Command attempted:    ' + 'unzip ' + '/edx/var/edxapp/uploads/readerFiles/' + fileNamed + '/' + filePToken)
+                    gettingOutput.write("\n%s" % 'Exit code:    ' + str(exitCode))
+                    gettingOutput.write("\n%s" % output)
 
-                for x in range(0, 26):
-                    gettingOutput.write("\n%s" % 'Try Again!')
+                    for x in range(0, 26):
+                        gettingOutput.write("\n%s" % 'Try Again!')
+
+
 
         return Response(json_body=self.student_state())
 
